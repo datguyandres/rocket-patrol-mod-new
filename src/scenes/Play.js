@@ -50,6 +50,8 @@ class Play extends Phaser.Scene {
         // initialize score
         this.p1Score = 0;
         this.p2Score = 0;
+
+        this.timernew = game.settings.gameTimer;
               // display score
         let scoreConfig = {
             fontFamily: 'Courier',
@@ -66,6 +68,8 @@ class Play extends Phaser.Scene {
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
 
         this.scoreRight = this.add.text(borderUISize + borderPadding +450, borderUISize + borderPadding*2, this.p2Score, scoreConfig);
+
+        this.TimerMid = this.add.text(borderUISize + borderPadding +225, borderUISize + borderPadding*2, this.timernew, scoreConfig);
          
         // GAME OVER flag
         this.gameOver = false;
@@ -73,6 +77,7 @@ class Play extends Phaser.Scene {
         // 60-second play clock
         scoreConfig.fixedWidth = 0;
         this.clock = this.time.delayedCall(game.settings.gameTimer, () => {
+            //this.timernew +=1;
             this.add.text(game.config.width/2, game.config.height/2, 'GAME OVER', scoreConfig).setOrigin(0.5);
             this.add.text(game.config.width/2, game.config.height/2 + 64, 'Press (R) to Restart or <- for Menu', scoreConfig).setOrigin(0.5);
             this.gameOver = true;
@@ -90,11 +95,14 @@ class Play extends Phaser.Scene {
         }
         this.starfield.tilePositionX -= 4;
         if ( !this.gameOver){
+            this.timernew -= 10;
+            console.log(this.timernew);
             this.p1Rocket.update();
             this.p2Rocket.update();
             this.ship01.update();               // update spaceships (x3)
             this.ship02.update();
             this.ship03.update();
+            this.TimerMid.text = Math.floor(this.timernew/1000);
         }
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {

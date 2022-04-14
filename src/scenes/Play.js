@@ -49,6 +49,7 @@ class Play extends Phaser.Scene {
         });
         // initialize score
         this.p1Score = 0;
+        this.p2Score = 0;
               // display score
         let scoreConfig = {
             fontFamily: 'Courier',
@@ -63,6 +64,8 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+
+        this.scoreRight = this.add.text(borderUISize + borderPadding +450, borderUISize + borderPadding*2, this.p2Score, scoreConfig);
          
         // GAME OVER flag
         this.gameOver = false;
@@ -96,28 +99,28 @@ class Play extends Phaser.Scene {
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.ship03);
+            this.shipExplode(this.ship03,1);
         }
         if (this.checkCollision(this.p1Rocket, this.ship02)) {
             this.p1Rocket.reset();
-            this.shipExplode( this.ship02);
+            this.shipExplode( this.ship02,1);
         }
         if (this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.ship01);
+            this.shipExplode(this.ship01,1);
         }
 
         if(this.checkCollision(this.p2Rocket, this.ship03)) {
             this.p2Rocket.reset();
-            this.shipExplode(this.ship03);
+            this.shipExplode(this.ship03,2);
         }
         if (this.checkCollision(this.p2Rocket, this.ship02)) {
             this.p2Rocket.reset();
-            this.shipExplode( this.ship02);
+            this.shipExplode( this.ship02,2);
         }
         if (this.checkCollision(this.p2Rocket, this.ship01)) {
             this.p2Rocket.reset();
-            this.shipExplode(this.ship01);
+            this.shipExplode(this.ship01,2);
         }
     }
 
@@ -134,7 +137,7 @@ class Play extends Phaser.Scene {
         }
     }
 
-    shipExplode(ship) {
+    shipExplode(ship, x) {
         // temporarily hide ship
         ship.alpha = 0;
         // create explosion sprite at ship's position
@@ -146,8 +149,15 @@ class Play extends Phaser.Scene {
           boom.destroy();                       // remove explosion sprite
         });   
           // score add and repaint
-        this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score;   
+        if (x == 1){
+            this.p1Score += ship.points;
+        }
+
+        if (x == 2){
+            this.p2Score += ship.points;
+        }
+        this.scoreLeft.text = this.p2Score;   
+        this.scoreRight.text = this.p1Score;
         this.sound.play('sfx_explosion');   
     }
 }

@@ -5,10 +5,10 @@ class Play extends Phaser.Scene {
     preload() {
         // load images/tile sprites
         this.load.image('rocket', './assets/rocket.png');
-        this.load.image('spaceship', './assets/spaceship.png');
+        this.load.image('spaceship', './assets/newshark.png');
         this.load.image('starfield', './assets/starfield.png');
         // load spritesheet
-        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('explosion', './assets/shark_go_boom2.png', {frameWidth: 96, frameHeight: 64, startFrame: 0, endFrame: 11});
     }
     
 
@@ -95,14 +95,13 @@ class Play extends Phaser.Scene {
         }
         this.starfield.tilePositionX -= 4;
         if ( !this.gameOver){
-            this.timernew -= 10;
-            console.log(this.timernew);
+            this.timernew = this.clock.getOverallRemainingSeconds();
             this.p1Rocket.update();
             this.p2Rocket.update();
             this.ship01.update();               // update spaceships (x3)
             this.ship02.update();
             this.ship03.update();
-            this.TimerMid.text = Math.floor(this.timernew/1000);
+            this.TimerMid.text = Math.floor(this.timernew);
         }
         // check collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {

@@ -16,7 +16,7 @@ class Play extends Phaser.Scene {
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
         // green UI background
-       /\/ this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
+       // this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0, 0);
         // white borders
         this.add.rectangle(0, 0, game.config.width, borderUISize, 0x000000).setOrigin(0, 0);
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0x000000).setOrigin(0, 0);
@@ -55,7 +55,7 @@ class Play extends Phaser.Scene {
               // display score
         let scoreConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '22px',
             //backgroundColor: '#F3B141',
             color: '#FFFFFF',
             align: 'right',
@@ -65,11 +65,26 @@ class Play extends Phaser.Scene {
             },
             fixedWidth: 100
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
 
-        this.scoreRight = this.add.text(borderUISize + borderPadding +450, borderUISize + borderPadding*2, this.p2Score, scoreConfig);
+        let textConfig = {
+            fontFamily: 'Courier',
+            fontSize: '22px',
+            //backgroundColor: '#F3B141',
+            color: '#FFFFFF',
+            align: 'right',
+            padding: {
+            top: 5,
+            bottom: 5,
+            },
+            fixedWidth: 300
+        }
+        this.scoreLeft = this.add.text(borderUISize + borderPadding +215, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        this.add.text(borderUISize, borderUISize + borderPadding*2, 'player one score:', textConfig);
 
-        this.TimerMid = this.add.text(borderUISize + borderPadding +225, borderUISize + borderPadding*2, this.timernew, scoreConfig);
+        this.scoreRight = this.add.text(borderUISize + borderPadding +480, borderUISize + borderPadding*2, this.p2Score, scoreConfig);
+        this.add.text(borderUISize + borderPadding +250, borderUISize + borderPadding*2, 'player two score:', textConfig);
+
+        this.TimerMid = this.add.text(borderUISize + borderPadding +200, borderUISize + borderPadding*2 -20, this.timernew, scoreConfig);
          
         // GAME OVER flag
         this.gameOver = false;
@@ -88,11 +103,14 @@ class Play extends Phaser.Scene {
     update() {
         console.log(this.p1Rocket.height);
           // check key input for restart
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
-            if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (this.gameOver) {
+
+            if (this.gameOver && Phaser.Input.Keyboard.JustDown(this.p1Rocket.moveleft)) {
                 this.scene.start("menuScene");
             }
-            this.scene.restart();
+            if (Phaser.Input.Keyboard.JustDown(keyR)){
+              this.scene.restart();
+            }
         }
         this.starfield.tilePositionX -= 4;
         if ( !this.gameOver){

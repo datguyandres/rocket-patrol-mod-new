@@ -14,7 +14,7 @@ class Menu extends Phaser.Scene {
     create() {
         let menuConfig = {
             fontFamily: 'Courier',
-            fontSize: '28px',
+            fontSize: '22px',
             backgroundColor: '#02075d',
             color: '#FFFFFF',
             align: 'right',
@@ -29,7 +29,7 @@ class Menu extends Phaser.Scene {
         //show menu text
         this.add.text(game.config.width/2, game.config.height/2 - borderUISize - 
         borderPadding, 'SHARK FISHING', menuConfig). setOrigin(0.5);
-        this.add.text(game.config.width/2, game.config.height/2, 'Use ←→ arrows to move & (F) to fire', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2, 'Use ←→ arrows/(W)(D) to move & (F)/(↑) to fire', menuConfig).setOrigin(0.5);
         menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize +

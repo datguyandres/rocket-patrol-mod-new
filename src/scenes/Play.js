@@ -76,13 +76,13 @@ class Play extends Phaser.Scene {
             top: 5,
             bottom: 5,
             },
-            fixedWidth: 300
+            fixedWidth: 120
         }
-        this.scoreLeft = this.add.text(borderUISize + borderPadding +215, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
-        this.add.text(borderUISize, borderUISize + borderPadding*2, 'player one score:', textConfig);
+        this.scoreLeft = this.add.text(borderUISize+ borderPadding + 50 , borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        this.add.text(borderUISize, borderUISize + borderPadding*2, 'p1 score:', textConfig);
 
         this.scoreRight = this.add.text(borderUISize + borderPadding +480, borderUISize + borderPadding*2, this.p2Score, scoreConfig);
-        this.add.text(borderUISize + borderPadding +250, borderUISize + borderPadding*2, 'player two score:', textConfig);
+        this.add.text(borderUISize + borderPadding +400, borderUISize + borderPadding*2, 'p2 score:', textConfig);
 
         this.TimerMid = this.add.text(borderUISize + borderPadding +200, borderUISize + borderPadding*2 -20, this.timernew, scoreConfig);
          
